@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<!-- Website - www.codingnepalweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Responsiive Admin List | GFMAURILA</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="novo.css" />
+    <!-- Boxicons CDN Link -->
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="sidebar">
+
+      <div class="logo-details">
+        <i class="bx bxl-c-plus-plus"></i>
+        <span class="logo_name">GFMAURILA</span>
+      </div>
+
+      <ul class="nav-links">
+        <li>
+          <a href="#" class="active">
+            <i class="bx bx-grid-alt"></i>
+            <span class="links_name">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="bx bx-box"></i>
+            <span class="links_name">Product</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="bx bx-list-ul"></i>
+            <span class="links_name">Order list</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="bx bx-pie-chart-alt-2"></i>
+            <span class="links_name">Analytics</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="bx bx-coin-stack"></i>
+            <span class="links_name">Stock</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="bx bx-book-alt"></i>
+            <span class="links_name">Total order</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="bx bx-user"></i>
+            <span class="links_name">Team</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="bx bx-message"></i>
+            <span class="links_name">Messages</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="bx bx-heart"></i>
+            <span class="links_name">Favrorites</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="bx bx-cog"></i>
+            <span class="links_name">Setting</span>
+          </a>
+        </li>
+        <li class="log_out">
+          <a href="#">
+            <i class="bx bx-log-out"></i>
+            <span class="links_name">Log out</span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+
+    <section class="home-section">
+
+      <nav>
+        <div class="sidebar-button">
+          <i class="bx bx-menu sidebarBtn"></i>
+          <span class="dashboard">Usuários - Cadastrar ou Editar usuário</span>
+        </div>
+        
+        <div class="profile-details">
+          <img src="images/profile.jpg" alt="" />
+          <span class="admin_name">Prem Shahi</span>
+          <i class="bx bx-chevron-down"></i>
+        </div>
+      </nav>
+
+      <div class="home-content">
+        <div class="overview-boxes">
+          
+          <div class="box-filter">          
+            <button class="button button-default">Voltar</button>
+          </div>
+
+        </div>
+
+        <div class="sales-boxes">
+          
+          <div class="recent-sales-list box">
+
+            <div id="records-section">
+              
+              <div class="list-container">
+                
+                <div class="form-container">
+                  <!-- Campo de Nome de Usuário -->
+                  <div class="form-group">
+                    <label for="username">Nome de usuário</label>
+                    <input type="text" id="username" name="username" placeholder="Digite o nome do usuário">
+                  </div>
+                
+                  <!-- Campo de Email -->
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Digite o email do usuário">
+                  </div>
+                
+                  <!-- Campo de Senha -->
+                  <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" placeholder="Digite a senha">
+                  </div>
+                
+                  <!-- Seleção de Status -->
+                  <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status">
+                      <option value="user">User</option>
+                      <option value="admin">Admin</option>
+                      <!-- Adicione mais opções de status conforme necessário -->
+                    </select>
+                  </div>
+                
+                  <div class="permissions-container">
+                    <div class="permissions-title">Permissões</div>
+
+
+                    <div class="permissions-container">
+                      <div class="permissions-title">Usuários</div>
+                      <div class="checkbox-group">
+                        <input type="checkbox" id="user-all-access" name="user_permission" value="all-access">
+                        <label for="user-all-access" class="checkbox-label">Todos acessos</label>
+                      </div>
+                      <div class="checkbox-group">
+                        <input type="checkbox" id="user-insert" name="user_permission" value="insert">
+                        <label for="user-insert" class="checkbox-label">Insert</label>
+                      </div>
+                      <div class="checkbox-group">
+                        <input type="checkbox" id="user-update" name="user_permission" value="update">
+                        <label for="user-update" class="checkbox-label">Update</label>
+                      </div>
+                      <div class="checkbox-group">
+                        <input type="checkbox" id="user-delete" name="user_permission" value="delete">
+                        <label for="user-delete" class="checkbox-label">Delete</label>
+                      </div>
+                      <div class="checkbox-group">
+                        <input type="checkbox" id="user-list" name="user_permission" value="list">
+                        <label for="user-list" class="checkbox-label">List</label>
+                      </div>
+                    </div>
+                    
+                    <div class="permissions-container">
+                      <div class="permissions-title">Notificações</div>
+                      <div class="checkbox-group">
+                        <input type="checkbox" id="notifications-all-access" name="notifications_permission" value="all-access">
+                        <label for="notifications-all-access" class="checkbox-label">Todos acessos</label>
+                      </div>
+                      <div class="checkbox-group">
+                        <input type="checkbox" id="notifications-insert" name="notifications_permission" value="insert">
+                        <label for="notifications-insert" class="checkbox-label">Insert</label>
+                      </div>
+                      <div class="checkbox-group">
+                        <input type="checkbox" id="notifications-update" name="notifications_permission" value="update">
+                        <label for="notifications-update" class="checkbox-label">Update</label>
+                      </div>
+                    </div>
+                    
+                    <div class="permissions-container">
+                      <div class="permissions-title">Grupos</div>
+                      <div class="checkbox-group">
+                        <input type="checkbox" id="groups-all-access" name="groups_permission" value="all-access">
+                        <label for="groups-all-access" class="checkbox-label">Todos acessos</label>
+                      </div>
+                      <div class="checkbox-group">
+                        <input type="checkbox" id="groups-insert" name="groups_permission" value="insert">
+                        <label for="groups-insert" class="checkbox-label">Insert</label>
+                      </div>
+                      <div class="checkbox-group">
+                        <input type="checkbox" id="groups-delete" name="groups_permission" value="delete">
+                        <label for="groups-delete" class="checkbox-label">Delete</label>
+                      </div>
+                    </div>
+
+                  </div>
+                  
+                
+                  <!-- Botões de Ação -->
+                  <div class="action-buttons">
+                    <button type="submit" class="button button-cadastrar">Cadastrar</button>
+                    <button type="button" class="button button-cancelar">Cancelar</button>
+                    <button type="button" class="button button-voltar">Voltar</button>
+                  </div>
+
+                </div>
+
+                
+              </div>
+              
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <script>
+      let sidebar = document.querySelector(".sidebar");
+      let sidebarBtn = document.querySelector(".sidebarBtn");
+      sidebarBtn.onclick = function () {
+        sidebar.classList.toggle("active");
+        if (sidebar.classList.contains("active")) {
+          sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+        } else sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+      };
+    </script>
+  </body>
+</html>

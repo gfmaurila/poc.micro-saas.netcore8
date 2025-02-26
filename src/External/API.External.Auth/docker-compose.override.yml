@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+
+  api.gateway.webapi:
+    ports:
+      - 5060:5060
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro  
+
+  api.admin.webapi:
+    ports:
+      - 5061:5061
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      # - ASPNETCORE_ENVIRONMENT=Test
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+
+  poc.twilio.api.webapi:
+    ports:
+      - 5079:5079
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+
+
+

@@ -1,0 +1,6 @@
+@API.Gateway_HostAddress = http://localhost:5068
+
+GET {{API.Gateway_HostAddress}}/home/
+Accept: application/json
+
+###

@@ -1,0 +1,66 @@
+@baseUrl = http://localhost:5000/api/v1
+@correlationId = 123e4567-e89b-12d3-a456-426614174000
+@idempotencyId = 321e6547-e89b-12d3-a456-426614174111
+
+### Obter todos os Exemplos (ExempleController)
+GET {{baseUrl}}/Exemple
+Authorization: Bearer <TOKEN>
+
+### Obter um Exemplo por ID
+GET {{baseUrl}}/Exemple/{id}
+Authorization: Bearer <TOKEN>
+
+### Obter lista paginada de Exemplos
+GET {{baseUrl}}/Exemple/exemple?page=1&size=10
+Authorization: Bearer <TOKEN>
+
+### Criar um novo Exemplo
+POST {{baseUrl}}/Exemple
+Authorization: Bearer <TOKEN>
+Content-Type: application/json
+
+{
+  "name": "Novo Exemplo",
+  "description": "Descrição do exemplo"
+}
+
+### Atualizar um Exemplo
+PUT {{baseUrl}}/Exemple
+Authorization: Bearer <TOKEN>
+Content-Type: application/json
+
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "name": "Exemplo Atualizado",
+  "description": "Nova descrição"
+}
+
+### Deletar um Exemplo
+DELETE {{baseUrl}}/Exemple/{id}
+Authorization: Bearer <TOKEN>
+
+### Enviar uma notificação (NotificationController)
+POST {{baseUrl}}/Notification
+Authorization: Bearer <TOKEN>
+Content-Type: application/json
+
+{
+  "title": "Notificação de Teste",
+  "message": "Esta é uma mensagem de teste.",
+  "destination": "email ou whatsapp"
+}
+
+### Obter lista paginada de e-mails externos (ExternalEmailController)
+GET {{baseUrl}}/ExternalEmail?page=1&size=10
+Authorization: Bearer <TOKEN>
+
+### Criar um novo e-mail externo
+POST {{baseUrl}}/ExternalEmail
+Authorization: Bearer <TOKEN>
+Content-Type: application/json
+
+{
+  "recipient": "user@example.com",
+  "subject": "Teste de E-mail",
+  "body": "Conteúdo do e-mail"
+}

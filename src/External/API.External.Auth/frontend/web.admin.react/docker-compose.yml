@@ -1,0 +1,15 @@
+# docker-compose up --build
+# docker-compose build --no-cache
+version: '3.8'
+services:
+  poc.admin.react.web:
+    container_name: poc.admin.react
+    restart: always
+    build: .
+    expose:
+      - 3000
+    ports:
+      - '80:3000'
+    volumes:
+      - .:/app
+      - /app/node_modules

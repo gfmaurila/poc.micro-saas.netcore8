@@ -1,0 +1,247 @@
+version: '3.4'
+
+services:
+
+  api.gateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8443
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "5000:80"
+      - "8443:443"  # Porta HTTPS alterada para evitar conflito
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - app-backend
+      - shared-network
+
+  api.external.auth:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "5001:80"
+      - "8081:443"  # Mapeamento HTTPS corrigido
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+
+  api.exemple.core.08:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8082
+      - ASPNETCORE_URLS=http://+:80
+    ports: 
+      - "5002:80"
+      - "8082:443"  # Mapeamento HTTPS corrigido
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro  
+    networks:
+      - app-backend
+      - shared-network
+
+  api.person:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8090
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "7000:80"
+      - "8090:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - app-backend
+      - shared-network
+  
+  api.customer:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8091
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "7001:80"
+      - "8091:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - app-backend
+      - shared-network
+
+  api.clinic:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8092
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "7002:80"
+      - "8092:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - app-backend
+      - shared-network
+
+  api.freelancer:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8093
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "7003:80"
+      - "8093:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - app-backend
+      - shared-network
+
+  api.hr:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8094
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "7004:80"
+      - "8094:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - app-backend
+      - shared-network
+
+  api.inventorycontrol:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8095
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "7005:80"
+      - "8095:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - app-backend
+      - shared-network
+
+  api.external.email:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8083
+      - ASPNETCORE_URLS=http://+:80
+    ports: 
+      - "5003:80"
+      - "8083:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - app-backend
+      - shared-network
+
+  api.external.mkt:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8084
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "5004:80"
+      - "8084:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - app-backend
+      - shared-network
+
+
+  # worker.kafka:
+  #   environment:
+  #     - DOTNET_ENVIRONMENT=Docker
+  #   volumes:
+  #     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+  #   networks:
+  #     - app-backend
+  #     - shared-network
+
+  # worker.rabbitmq:
+  #   environment:
+  #     - DOTNET_ENVIRONMENT=Docker
+  #   volumes:
+  #     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro 
+  #   networks:
+  #     - app-backend
+  #     - shared-network
+
+
+
+  sqlserver:
+    ports:
+      - "1433:1433"
+    networks:
+      - app-backend
+
+  redis:
+    ports:
+      - "6379:6379"  # Redis utilizando a porta correta
+    networks:
+      - app-backend
+
+  mongoserver:
+    ports:
+      - "27017:27017"  
+    networks:
+      - app-backend
+
+  rabbitmq:
+    ports:
+      - 5672:5672
+      - 15672:15672  
+    networks:
+      - app-backend
+
+  zookeeper:
+    networks:
+      - app-backend
+
+  kafka1:
+    networks:
+      - app-backend
+
+  kafka-ui:
+    networks:
+      - app-backend
+
+
+
+  
+
+
+
+
+
+
+
+

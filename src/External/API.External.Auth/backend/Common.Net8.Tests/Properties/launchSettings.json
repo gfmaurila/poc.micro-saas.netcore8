@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Common.External.Auth.Net8.Tests": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

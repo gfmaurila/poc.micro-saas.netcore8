@@ -1,0 +1,151 @@
+
+.overview-boxes .box-filter {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #fff;
+  padding: 15px 14px;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.home-content .sales-boxes .recent-sales-list {
+  width: 100%;
+  background: #fff;
+  padding: 20px 30px;
+  margin: 0 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Ícones para ações */
+.action-icons {
+  cursor: pointer;
+}
+
+.edit-icon:before {
+  content: '\e254'; /* exemplo de código de ícone para editar */
+}
+
+.delete-icon:before {
+  content: '\e872'; /* exemplo de código de ícone para deletar */
+}
+
+/* Estilização dos botões */
+.button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-primary {
+  background-color: #4CAF50; /* Cor primária para ação principal */
+  color: white;
+}
+
+.button-secondary {
+  background-color: #f44336; /* Cor secundária para ações como cancelar */
+  color: white;
+}
+
+.button-default {
+  background-color: #e7e7e7; /* Cor neutra para ações menos importantes */
+  color: black;
+}
+
+/* Filtro */
+#filter-input {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+}
+
+
+
+.list-container {
+  width: 100%;
+}
+
+.list-header, .list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.list-head {
+  font-weight: bold;
+  flex: 1;
+  text-align: left;
+}
+
+.list-cell {
+  flex: 1;
+  text-align: left;
+  padding: 5px 10px;
+}
+
+/* Botões dentro das células de ação */
+.button-edit, .button-delete {
+  padding: 5px 10px;
+  margin: 0 5px;
+}
+
+/* Estilos para telas pequenas */
+@media (max-width: 768px) {
+  .list-header, .list-item {
+    flex-wrap: wrap;
+  }
+  .list-head, .list-cell {
+    flex: 1 1 100%;
+    text-align: left;
+  }
+  .list-cell {
+    padding: 5px 0; /* menos padding em telas pequenas */
+  }
+}
+
+
+/* Estilo base para os botões de ação */
+.action-button {
+  padding: 8px 12px;
+  border: 1px solid #cccccc; /* cor de borda sutil */
+  background-color: #ffffff; /* fundo branco para começar */
+  color: #333333; /* cor de texto escura para contraste */
+  border-radius: 4px; /* bordas arredondadas */
+  cursor: pointer; /* cursor de mão indicando ação */
+  outline: none; /* remover outline quando focado */
+  margin-right: 8px; /* espaçamento entre botões */
+  transition: all 0.2s ease-in-out; /* transição suave para efeitos de hover e foco */
+}
+
+.action-button:last-child {
+  margin-right: 0; /* remover margem do último botão */
+}
+
+/* Estilo para hover nos botões */
+.action-button:hover {
+  background-color: #f2f2f2; /* cor de fundo mais escura quando passa o mouse */
+  border-color: #bbbbbb; /* borda um pouco mais escura para contraste */
+}
+
+/* Estilo para o botão 'Editar' */
+.edit-button {
+  color: #4CAF50; /* cor verde indicando edição */
+}
+
+/* Estilo para o botão 'Remover' */
+.remove-button {
+  color: #f44336; /* cor vermelha indicando remoção */
+}
+
+/* Se você quiser adicionar ícones, você pode usar uma fonte de ícones como FontAwesome */
+/* Adicione a classe do ícone correspondente ao seu <i> ou <span> dentro do botão */
+.action-button i {
+  margin-right: 4px; /* espaço entre o ícone e o texto */
+}

@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+	  <TargetFramework>net8.0</TargetFramework>
+	  <Nullable>enable</Nullable>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <UserSecretsId>e12b9a6a-c204-462b-a12d-143fb173f6d4</UserSecretsId>
+	  <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	  <DockerfileContext>..\..\..</DockerfileContext>
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Ardalis.Result" Version="7.0.0" />
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
+		<PackageReference Include="MediatR" Version="11.1.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="7.0.3" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+		<PackageReference Include="Serilog" Version="3.1.1" />
+		<PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+		<PackageReference Include="Serilog.Sinks.ColoredConsole" Version="3.0.1" />
+		<PackageReference Include="Serilog.Sinks.MongoDB" Version="5.4.1" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
+		<PackageReference Include="poc.core.api.net8" Version="1.0.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\02-Application\Poc.Command\Poc.Command.csproj" />
+		<ProjectReference Include="..\..\02-Application\Poc.Contract\Poc.Contract.csproj" />
+		<ProjectReference Include="..\..\04-Infrastructure\DistributedCache\Poc.DistributedCache\Poc.DistributedCache.csproj" />
+		<ProjectReference Include="..\..\04-Infrastructure\Integration\Poc.Auth\Poc.Auth.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Properties\launchSettings.json">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+	  </None>
+	</ItemGroup>
+
+</Project>

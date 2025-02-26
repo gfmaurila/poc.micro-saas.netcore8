@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+
+  poc.api.mkt-webapi:
+    ports:
+      - 5075:5075
+    networks:
+      - shared-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:gfmaurila
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:gfmaurila

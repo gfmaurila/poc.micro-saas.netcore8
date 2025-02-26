@@ -1,0 +1,156 @@
+
+.overview-boxes .box-filter {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #fff;
+  padding: 15px 14px;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.home-content .sales-boxes .recent-sales-list {
+  width: 100%;
+  background: #fff;
+  padding: 20px 30px;
+  margin: 0 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+/* Estilos gerais do formulário */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background: #fff; /* Ou a cor de fundo que preferir */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-size: 1rem;
+  color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Checkbox e Radio button mais estilizados */
+.checkbox-group,
+.radio-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.button {
+  padding: 10px 15px; /* Padding adequado para o conteúdo do botão */
+  margin: 0 5px; /* Espaço entre os botões */
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
+}
+
+/* Cores e estilos específicos para cada botão */
+.button-cadastrar {
+  background-color: #4CAF50;
+  color: white;
+  max-width: 100px; /* Um mínimo de largura para consistência */
+}
+
+.button-cancelar {
+  background-color: #f44336;
+  color: white;
+  max-width: 100px;
+}
+
+.button-voltar {
+  background-color: #e7e7e7;
+  color: #333;
+  max-width: 100px;
+}
+
+/* Você pode querer alinhar os botões à direita ou apenas centralizá-los */
+.action-buttons {
+  display: flex;
+  justify-content: flex-end; /* Alinha os botões à direita */
+  padding: 0 15px; /* Padding no contêiner para evitar que os botões toquem as bordas */
+}
+
+
+
+/* Estilo do contêiner das permissões */
+.permissions-container {
+  border: 1px solid #ccc; /* borda sutil */
+  border-radius: 4px; /* bordas arredondadas */
+  padding: 15px; /* espaçamento interno */
+  margin: 10px 0; /* espaçamento externo */
+}
+
+/* Estilo para o título de Permissões */
+.permissions-title {
+  margin-bottom: 10px; /* espaço antes da lista de checkboxes */
+  padding-left: 5px; /* alinhamento do texto com os checkboxes */
+  font-size: 1rem; /* tamanho da fonte do título */
+}
+
+/* Estilo individual dos checkboxes */
+.checkbox-group {
+  margin: 5px 0; /* espaçamento entre os checkboxes */
+  display: flex;
+  align-items: center; /* alinhamento vertical do texto com o checkbox */
+}
+
+/* Estilo do label ao lado do checkbox */
+.checkbox-label {
+  margin-left: 5px; /* espaço entre o checkbox e o label */
+}
+
+
+/* Estilos que já foram fornecidos anteriormente */
+.permissions-container {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 15px;
+  margin: 10px 0;
+}
+
+.permissions-title {
+  margin-bottom: 10px;
+  padding-left: 5px;
+  font-size: 1rem;
+  font-weight: bold; /* Adicionado para destacar os títulos das seções */
+}
+
+.checkbox-group {
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-label {
+  margin-left: 5px;
+}
+

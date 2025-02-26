@@ -1,0 +1,54 @@
+version: '3.9'
+# docker network create shared-network
+networks:
+  app-mkt:
+    driver: bridge
+  # docker network create shared-network
+  shared-network:
+    external: true
+
+services:
+
+  # http://localhost:5075/swagger/index.html
+  poc.api.mkt-webapi:
+    image: ${DOCKER_REGISTRY-}poc.api.mkt-webapi
+    container_name: poc.api.mkt-webapi
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 5074
+    ports:
+      - 5075:5075
+    links:
+      - sqlservermkt
+    networks:
+      - app-mkt
+      - shared-network
+    depends_on:
+      - sqlservermkt
+      
+  # SQL Server
+  # Add-Migration Inicial -Context SqlServerDb
+  # Update-Database -Context SqlServerDb
+  sqlservermkt:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    cap_add: [ 'SYS_PTRACE' ]
+    hostname: mssql
+    container_name: sqlservermkt
+    restart: always
+    expose:
+      - 1433
+    ports:
+      - 1434:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=@Poc2Minimal@Api
+    networks:
+      - app-mkt
+    volumes:
+      - sql_data:/var/opt/mssql
+
+volumes:
+  sql_data: 

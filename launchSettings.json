@@ -1,0 +1,25 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "api.auth": "StartDebugging",
+        "api.gateway": "StartDebugging",
+        "API.External.MKT": "StartDebugging",
+        "api.external.auth": "StartDebugging",
+        "worker.kafka": "StartDebugging",
+        "worker.rabbitmq": "StartDebugging",
+        "common.external.auth.net8.tests": "StartDebugging",
+        "api.external.auth.tests": "StartDebugging",
+        "api.external.email": "StartDebugging",
+        "api.customer.core": "StartDebugging",
+        "api.external.person": "StartDebugging",
+        "api.clinic.core": "StartDebugging",
+        "api.freelancer.core": "StartDebugging",
+        "api.hr.core": "StartDebugging",
+        "api.inventorycontrol.core": "StartDebugging"
+      }
+    }
+  }
+}

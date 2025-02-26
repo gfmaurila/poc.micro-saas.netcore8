@@ -1,0 +1,112 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>API.Exemple1.Core._08</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Feature\Domain\Exemple\Events\Messaging\Kafka\**" />
+    <Compile Remove="Feature\Exemple\Commands\Delete\Events\Messaging\Kafka\**" />
+    <Compile Remove="Feature\Exemple\Commands\Update\Events\Messaging\Kafka\**" />
+    <Content Remove="Feature\Domain\Exemple\Events\Messaging\Kafka\**" />
+    <Content Remove="Feature\Exemple\Commands\Delete\Events\Messaging\Kafka\**" />
+    <Content Remove="Feature\Exemple\Commands\Update\Events\Messaging\Kafka\**" />
+    <EmbeddedResource Remove="Feature\Domain\Exemple\Events\Messaging\Kafka\**" />
+    <EmbeddedResource Remove="Feature\Exemple\Commands\Delete\Events\Messaging\Kafka\**" />
+    <EmbeddedResource Remove="Feature\Exemple\Commands\Update\Events\Messaging\Kafka\**" />
+    <None Remove="Feature\Domain\Exemple\Events\Messaging\Kafka\**" />
+    <None Remove="Feature\Exemple\Commands\Delete\Events\Messaging\Kafka\**" />
+    <None Remove="Feature\Exemple\Commands\Update\Events\Messaging\Kafka\**" />
+  </ItemGroup>
+
+	<ItemGroup>
+
+		<PackageReference Include="Bogus" Version="35.6.1" />
+
+		<PackageReference Include="Carter" Version="8.0.0" />
+
+		<PackageReference Include="Confluent.Kafka" Version="2.8.0" />
+		<PackageReference Include="Mapster" Version="7.4.0" />
+		<PackageReference Include="Mapster.Core" Version="1.2.1" />
+
+		<PackageReference Include="Antlr4.Runtime" Version="4.6.6" />
+		<PackageReference Include="Ardalis.Result" Version="9.1.0" />
+		<PackageReference Include="Ardalis.SmartEnum" Version="8.2.0" />
+
+		<!--FluentValidation-->
+		<PackageReference Include="FluentValidation" Version="11.9.2" />
+		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.3.0" />
+
+		<!--RabbitMQ-->
+		<PackageReference Include="RabbitMQ" Version="3.6.2" />
+		<PackageReference Include="MassTransit" Version="8.2.4" />
+		<PackageReference Include="MassTransit.RabbitMQ" Version="8.2.4" />
+
+		<!--MediatR-->
+		<PackageReference Include="MediatR" Version="12.2.0" />
+
+
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.openApi" Version="8.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+
+		<PackageReference Include="Microsoft.OpenApi" Version="1.6.15" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+		<PackageReference Include="Newtonsoft.json" Version="13.0.3" />
+		<PackageReference Include="Refit" Version="8.0.0" />
+		<PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
+		<PackageReference Include="Refit.Newtonsoft.Json" Version="8.0.0" />
+
+		<PackageReference Include="Serilog" Version="3.1.1" />
+		<PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+		<PackageReference Include="Serilog.Sinks.ColoredConsole" Version="3.0.1" />
+		<PackageReference Include="Serilog.Sinks.MongoDB" Version="5.4.1" />
+
+		<PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="API.Exemple.Core.08.Tests" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Core\Common.Core.08\Common.Core.08.csproj" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="appsettings.Docker.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

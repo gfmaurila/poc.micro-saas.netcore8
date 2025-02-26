@@ -1,0 +1,469 @@
+# docker-compose down
+# docker-compose up -d --build
+# docker-compose up --build
+# Add-Migration Inicial -Context ExempleAppDbContext 
+# Update-Database -Context ExempleAppDbContext
+
+# Add-Migration Inicial -Context PersonAppDbContext 
+# Add-Migration InicialPerson -Context PersonAppDbContext 
+# Update-Database -Context PersonAppDbContext
+
+# Add-Migration Inicial -Context CustomerAppDbContext 
+# Update-Database -Context CustomerAppDbContext
+
+# Criando API nova
+# dotnet new webapi -n AuthSystem
+# dotnet new webapi -n API.Person
+
+version: '3.4'
+
+networks:
+  app-backend:
+    driver: bridge
+  # docker network create shared-network
+  shared-network:
+    external: true
+
+services:
+
+# APIs INI --------------------------------------------------------  
+
+  # Acesso ao gateway
+  # http://localhost:5000/swagger/index.html
+  api.gateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    restart: always
+    build:
+      context: .
+      dockerfile: src/API/API.Gateway/Dockerfile
+    networks:
+      - app-backend
+      - shared-network
+    depends_on:
+      - api.exemple.core.08
+      - api.external.auth
+      - api.external.email
+      - api.external.mkt
+    links:
+      - api.exemple.core.08
+      - api.external.auth
+      - api.external.email
+      - api.external.mkt
+
+  # Exemplo
+  # http://localhost:5002/swagger/index.html
+  api.exemple.core.08:
+    image: ${DOCKER_REGISTRY-}apiexemplecore08
+    restart: always
+    build:
+      context: .
+      dockerfile: src/API/API.Exemple.Core.08/Dockerfile
+    networks:
+      - app-backend
+      - shared-network
+    depends_on:
+      - sqlserver
+      - kafka1
+      - redis
+      - mongoserver
+      - rabbitmq
+      - api.external.auth
+      - api.external.email
+      - api.external.mkt
+      - api.person
+    links:
+      - api.external.auth
+      - api.external.email
+      - api.external.mkt
+      - api.person
+
+  api.person:
+    image: ${DOCKER_REGISTRY-}apiexternalperson
+    restart: always
+    build:
+      context: .
+      dockerfile: src/API/API.Person/Dockerfile
+    networks:
+      - app-backend
+      - shared-network
+    depends_on:
+      - sqlserver
+      - kafka1
+      - redis
+      - mongoserver
+      - rabbitmq 
+      - api.external.auth
+      - api.external.email
+      - api.external.mkt 
+    links:
+      - api.external.auth
+      - api.external.email
+      - api.external.mkt
+  
+  # Customer
+  # http://localhost:7001/swagger/index.html
+  api.customer:
+    image: ${DOCKER_REGISTRY-}apicustomer
+    restart: always
+    build:
+      context: .
+      dockerfile: src/API/API.Customer/Dockerfile
+    networks:
+      - app-backend
+      - shared-network
+    depends_on:
+      - sqlserver
+      - kafka1
+      - redis
+      - mongoserver
+      - rabbitmq 
+      - api.external.auth
+      - api.person
+      - api.external.email
+      - api.external.mkt 
+    links:
+      - api.external.auth
+      - api.person
+      - api.external.email
+      - api.external.mkt
+
+  api.clinic:
+    image: ${DOCKER_REGISTRY-}apiclinic
+    restart: always
+    build:
+      context: .
+      dockerfile: src/API/API.Clinic/Dockerfile
+    networks:
+      - app-backend
+      - shared-network
+    depends_on:
+      - sqlserver
+      - kafka1
+      - redis
+      - mongoserver
+      - rabbitmq 
+      - api.external.auth
+      - api.person
+      - api.external.email
+      - api.external.mkt 
+      - api.customer
+    links:
+      - api.external.auth
+      - api.person
+      - api.external.email
+      - api.external.mkt
+      - api.customer
+
+  api.freelancer:
+    image: ${DOCKER_REGISTRY-}apifreelancer
+    restart: always
+    build:
+      context: .
+      dockerfile: src/API/API.Freelancer/Dockerfile
+    networks:
+      - app-backend
+      - shared-network
+    depends_on:
+      - sqlserver
+      - kafka1
+      - redis
+      - mongoserver
+      - rabbitmq 
+      - api.external.auth
+      - api.person
+      - api.external.email
+      - api.external.mkt 
+      - api.customer
+    links:
+      - api.external.auth
+      - api.person
+      - api.external.email
+      - api.external.mkt
+      - api.customer
+
+  api.hr:
+    image: ${DOCKER_REGISTRY-}apihr
+    restart: always
+    build:
+      context: .
+      dockerfile: src/API/API.HR/Dockerfile
+    networks:
+      - app-backend
+      - shared-network
+    depends_on:
+      - sqlserver
+      - kafka1
+      - redis
+      - mongoserver
+      - rabbitmq 
+      - api.external.auth
+      - api.person
+      - api.external.email
+      - api.external.mkt 
+      - api.customer
+    links:
+      - api.external.auth
+      - api.person
+      - api.external.email
+      - api.external.mkt
+      - api.customer
+
+  api.inventorycontrol:
+    image: ${DOCKER_REGISTRY-}apiinventorycontrol
+    restart: always
+    build:
+      context: .
+      dockerfile: src/API/API.InventoryControl/Dockerfile
+    networks:
+      - app-backend
+      - shared-network
+    depends_on:
+      - sqlserver
+      - kafka1
+      - redis
+      - mongoserver
+      - rabbitmq 
+      - api.external.auth
+      - api.person
+      - api.external.email
+      - api.external.mkt 
+      - api.customer
+    links:
+      - api.external.auth
+      - api.person
+      - api.external.email
+      - api.external.mkt
+      - api.customer
+
+
+# APIs FIM --------------------------------------------------------
+
+
+
+# External INI --------------------------------------------------------  
+
+
+  # Auth
+  # http://localhost:5001/swagger/index.html
+  api.external.auth:
+    image: ${DOCKER_REGISTRY-}apiexternalauth
+    restart: always
+    build:
+      context: .
+      dockerfile: src/External/API.External.Auth/backend/API.Admin/Dockerfile
+    networks:
+      - app-backend
+      - shared-network
+    depends_on:
+      - sqlserver
+      - redis
+      - mongoserver
+      - rabbitmq
+      
+  api.external.email:
+    image: ${DOCKER_REGISTRY-}apiexternalemail
+    restart: always
+    build:
+      context: .
+      dockerfile: src/External/API.External.Email/Dockerfile
+    networks:
+      - app-backend
+      - shared-network
+    depends_on:
+      - redis
+
+  api.external.mkt:
+    image: ${DOCKER_REGISTRY-}apiexternalmkt
+    restart: always
+    build:
+      context: .
+      dockerfile: src/External/API.External.MKT/Dockerfile
+    networks:
+      - app-backend
+      - shared-network
+    depends_on:
+      - sqlserver
+
+
+
+# External FIM --------------------------------------------------------  
+
+
+# Workers INI -------------------------------------------------------- 
+
+  # worker.kafka:
+  #   image: ${DOCKER_REGISTRY-}workerkafka
+  #   restart: always
+  #   build:
+  #     context: .
+  #     dockerfile: src/Worker/Worker.Kafka/Dockerfile
+  #   networks:
+  #     - app-backend
+  #     - shared-network
+  #   depends_on:
+  #     - mongoserver
+  #     - kafka1
+
+  # worker.rabbitmq:
+  #   image: ${DOCKER_REGISTRY-}workerrabbitmq
+  #   restart: always
+  #   build:
+  #     context: .
+  #     dockerfile: src/Worker/Worker.RabbitMQ/Dockerfile
+  #   depends_on:
+  #     - mongoserver
+  #     - rabbitmq
+
+# Workers FIM -------------------------------------------------------- 
+
+
+
+
+# INFRA INI --------------------------------------------------------  
+
+  # SQL Server
+  # Add-Migration Inicial -Context SqlServerDb
+  # Update-Database -Context SqlServerDb
+  sqlserver:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    cap_add: [ 'SYS_PTRACE' ]
+    hostname: mssql
+    container_name: sqlserver
+    restart: always
+    expose:
+      - 1433
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=@Poc2Minimal@Api
+    networks:
+      - app-backend
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    command: redis-server --requirepass Poc2Minimal@Api
+    restart: always
+    expose:
+      - 6379
+    ports:
+      - 6379:6379
+    networks:
+      - app-backend
+    volumes:
+      - redis_data:/var/opt/redis
+
+  mongoserver:
+    image: mongo:latest
+    container_name: mongoserver
+    restart: always
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+    networks:
+      - app-backend  
+    volumes:
+      - mongoserver_data:/var/opt/mongoserver
+
+
+  # http://localhost:15672/#/
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    restart: always
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - app-backend  
+
+  zookeeper:
+    image: bitnami/zookeeper:3.8
+    restart: always
+    ports:
+      - "2181:2181"
+    volumes:
+      - zookeeper_data:/bitnami
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+    networks:
+      - app-backend
+  
+
+  # http://localhost:9100
+  kafka1:
+    image: bitnami/kafka:3.6
+    restart: always
+    volumes:
+      - kafka_data1:/bitnami
+    environment:
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CFG_LISTENERS: INTERNAL://:9092,EXTERNAL://0.0.0.0:29092
+      KAFKA_CFG_ADVERTISED_LISTENERS: INTERNAL://kafka1:9092,EXTERNAL://localhost:29092
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      ALLOW_PLAINTEXT_LISTENER: 'yes'
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    depends_on:
+      - zookeeper
+    networks:
+      - app-backend
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    restart: always
+    ports:
+      - 9100:8080
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka1:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+    depends_on:
+      - kafka1
+    networks:
+      - app-backend
+
+
+# INFRA FIM --------------------------------------------------------
+
+
+
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_data1:
+    driver: local
+  sql_data:
+    driver: local
+  redis_data:
+    driver: local
+  mongoserver_data:
+    driver: local
+  .docker-conf:
+    driver: local
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

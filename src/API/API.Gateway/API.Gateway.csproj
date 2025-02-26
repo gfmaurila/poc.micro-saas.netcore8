@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>a914c658-0eb6-4b6d-9d3f-5e3afec75dee</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<DockerfileContext>..\..\..</DockerfileContext>
+	<DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.1" />
+	  <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+	  <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="7.2.0" />
+	  
+    <PackageReference Include="Serilog" Version="4.2.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageReference Include="Serilog.Sinks.ColoredConsole" Version="3.0.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.MongoDB" Version="7.0.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.8.24" />
+    <PackageReference Include="StackExchange.Redis.Extensions" Version="1.0.1" />
+    <PackageReference Include="Swashbuckle.aspnetcore" Version="7.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="7.2.0" />
+	  
+    <PackageReference Include="yarp.ReverseProxy" Version="2.2.0" />
+  </ItemGroup>
+
+</Project>
