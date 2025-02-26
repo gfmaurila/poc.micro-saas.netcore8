@@ -13,10 +13,25 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_PREFIX: ghcr.io/${{ github.repository }}
+  DB_CONNECTION_STRING: "Server=localhost,1433;Database=MicroSaasDB;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;"
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: "YourStrong!Passw0rd"
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd' -Q 'SELECT 1' || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout código
@@ -47,6 +62,16 @@ jobs:
             dotnet build poc.micro-saas.netcore8.sln --configuration Release --no-restore
           else
             find src -name "*.csproj" -exec dotnet build {} --configuration Release --no-restore \;
+          fi
+
+      - name: Aplicar Migrations no Banco de Dados
+        env:
+          ConnectionStrings__DefaultConnection: ${{ env.DB_CONNECTION_STRING }}
+        run: |
+          if [ -f "poc.micro-saas.netcore8.sln" ]; then
+            dotnet ef database update --configuration Release --context SeuDbContext
+          else
+            find src -name "*.csproj" -exec dotnet ef database update --configuration Release --context SeuDbContext {} \;
           fi
 
       - name: Rodar testes unitários
