@@ -25,13 +25,16 @@ jobs:
         env:
           ACCEPT_EULA: "Y"
           SA_PASSWORD: "YourStrong!Passw0rd"
+          MSSQL_MEMORY_LIMIT_MB: "512"  # 🔥 Reduzindo consumo de memória
         ports:
           - 1433:1433
         options: >-
-          --health-cmd "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd' -Q 'SELECT 1'" 
+          --health-cmd "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd' -Q 'SELECT 1'"
           --health-interval 10s
           --health-timeout 5s
-          --health-retries 10
+          --health-retries 15
+          --memory=2g  # 🔥 Limitando memória do container
+          --shm-size=256m  # 🔥 Limitando Shared Memory
 
     steps:
       - name: Checkout código
