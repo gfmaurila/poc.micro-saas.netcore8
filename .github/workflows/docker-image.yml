@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - develop
   pull_request:
     branches:
       - main
+      - develop
 
 env:
   REGISTRY: ghcr.io
@@ -25,14 +27,32 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: Verificar arquivos no repositório
+        run: ls -R
+
       - name: Restaurar pacotes NuGet
-        run: dotnet restore src/poc.micro-saas.netcore8.sln  # Se não tiver .sln, usar a opção do find
+        run: |
+          if [ -f "poc.micro-saas.netcore8.sln" ]; then
+            dotnet restore poc.micro-saas.netcore8.sln
+          else
+            find src -name "*.csproj" -exec dotnet restore {} \;
+          fi
 
       - name: Compilar solução
-        run: dotnet build src/poc.micro-saas.netcore8.sln --configuration Release --no-restore
+        run: |
+          if [ -f "poc.micro-saas.netcore8.sln" ]; then
+            dotnet build poc.micro-saas.netcore8.sln --configuration Release --no-restore
+          else
+            find src -name "*.csproj" -exec dotnet build {} --configuration Release --no-restore \;
+          fi
 
       - name: Rodar testes unitários
-        run: dotnet test src/poc.micro-saas.netcore8.sln --configuration Release --no-build --verbosity normal
+        run: |
+          if [ -f "poc.micro-saas.netcore8.sln" ]; then
+            dotnet test poc.micro-saas.netcore8.sln --configuration Release --no-build --verbosity normal
+          else
+            find src/04 -name "*.csproj" -exec dotnet test {} --configuration Release --no-build --verbosity normal \;
+          fi
 
   docker-build-push:
     runs-on: ubuntu-latest
