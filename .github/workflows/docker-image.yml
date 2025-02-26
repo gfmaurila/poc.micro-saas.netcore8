@@ -23,19 +23,28 @@ jobs:
       sqlserver:
         image: mcr.microsoft.com/mssql/server:2019-latest
         env:
-          ACCEPT_EULA: Y
+          ACCEPT_EULA: "Y"
           SA_PASSWORD: "YourStrong!Passw0rd"
         ports:
           - 1433:1433
         options: >-
-          --health-cmd "sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd' -Q 'SELECT 1' || exit 1"
+          --health-cmd "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd' -Q 'SELECT 1'" 
           --health-interval 10s
           --health-timeout 5s
-          --health-retries 5
+          --health-retries 10
 
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
+
+      - name: Aguardar o SQL Server subir
+        run: |
+          echo "Aguardando o SQL Server..."
+          for i in {1..30}; do
+            /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd' -Q "SELECT 1" && break
+            echo "SQL Server ainda não está pronto, aguardando..."
+            sleep 5
+          done
 
       - name: Configurar .NET SDKs (.NET 8 e .NET 9 Preview)
         uses: actions/setup-dotnet@v3
@@ -45,42 +54,19 @@ jobs:
             9.0.x
           include-prerelease: true
 
-      - name: Verificar arquivos no repositório
-        run: ls -R
-
       - name: Restaurar pacotes NuGet
-        run: |
-          if [ -f "poc.micro-saas.netcore8.sln" ]; then
-            dotnet restore poc.micro-saas.netcore8.sln
-          else
-            find src -name "*.csproj" -exec dotnet restore {} \;
-          fi
+        run: dotnet restore poc.micro-saas.netcore8.sln
 
       - name: Compilar solução
-        run: |
-          if [ -f "poc.micro-saas.netcore8.sln" ]; then
-            dotnet build poc.micro-saas.netcore8.sln --configuration Release --no-restore
-          else
-            find src -name "*.csproj" -exec dotnet build {} --configuration Release --no-restore \;
-          fi
+        run: dotnet build poc.micro-saas.netcore8.sln --configuration Release --no-restore
 
       - name: Aplicar Migrations no Banco de Dados
         env:
           ConnectionStrings__DefaultConnection: ${{ env.DB_CONNECTION_STRING }}
-        run: |
-          if [ -f "poc.micro-saas.netcore8.sln" ]; then
-            dotnet ef database update --configuration Release --context SeuDbContext
-          else
-            find src -name "*.csproj" -exec dotnet ef database update --configuration Release --context SeuDbContext {} \;
-          fi
+        run: dotnet ef database update --configuration Release --context SeuDbContext
 
       - name: Rodar testes unitários
-        run: |
-          if [ -f "poc.micro-saas.netcore8.sln" ]; then
-            dotnet test poc.micro-saas.netcore8.sln --configuration Release --no-build --verbosity normal
-          else
-            find src/04 -name "*.csproj" -exec dotnet test {} --configuration Release --no-build --verbosity normal \;
-          fi
+        run: dotnet test poc.micro-saas.netcore8.sln --configuration Release --no-build --verbosity normal
 
   docker-build-push:
     runs-on: ubuntu-latest
