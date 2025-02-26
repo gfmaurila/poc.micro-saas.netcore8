@@ -22,10 +22,13 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v4
 
-      - name: Configurar .NET SDK
+      - name: Configurar .NET SDKs (.NET 8 e .NET 9 Preview)
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: |
+            8.0.x
+            9.0.x
+          include-prerelease: true
 
       - name: Verificar arquivos no repositório
         run: ls -R
@@ -69,7 +72,7 @@ jobs:
       - name: Construir e enviar imagens Docker
         run: |
           for service in api.gateway api.person api.customer api.clinic api.freelancer api.hr api.inventorycontrol api.external.auth api.external.email api.external.mkt; do
-            docker build -t $IMAGE_PREFIX/$service:latest -f src/01\ -\ API/$service/Dockerfile .
+            docker build -t $IMAGE_PREFIX/$service:latest -f "src/01 - API/$service/Dockerfile" .
             docker push $IMAGE_PREFIX/$service:latest
           done
 
