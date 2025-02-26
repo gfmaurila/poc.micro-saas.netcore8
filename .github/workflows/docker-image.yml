@@ -1,0 +1,74 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_PREFIX: ghcr.io/${{ github.repository }}
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restaurar pacotes NuGet
+        run: dotnet restore src/poc.micro-saas.netcore8.sln  # Se não tiver .sln, usar a opção do find
+
+      - name: Compilar solução
+        run: dotnet build src/poc.micro-saas.netcore8.sln --configuration Release --no-restore
+
+      - name: Rodar testes unitários
+        run: dotnet test src/poc.micro-saas.netcore8.sln --configuration Release --no-build --verbosity normal
+
+  docker-build-push:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Login no GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Construir e enviar imagens Docker
+        run: |
+          for service in api.gateway api.person api.customer api.clinic api.freelancer api.hr api.inventorycontrol api.external.auth api.external.email api.external.mkt; do
+            docker build -t $IMAGE_PREFIX/$service:latest -f src/01\ -\ API/$service/Dockerfile .
+            docker push $IMAGE_PREFIX/$service:latest
+          done
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: docker-build-push
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Conectar ao servidor
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd /caminho/do/projeto
+            git pull origin main
+            docker login ghcr.io -u ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
+            docker-compose down
+            docker-compose pull
+            docker-compose up -d --build
